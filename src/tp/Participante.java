@@ -20,7 +20,10 @@ public class Participante {
     }
     
     public Participante() {
-
+        this.idParticipante = 0;
+        this.nombre = null;
+        this.pronosticos = null;
+        this.puntaje = 0;
     }
 
     public int getIdParticipante() {

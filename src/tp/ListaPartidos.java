@@ -65,14 +65,11 @@ public class ListaPartidos {
     }
     
         // cargar desde el archivo
-    public void cargarDeArchivo() {
+    public void cargarDeArchivo(ListaEquipos listEquipos) {
         // para las lineas del archivo csv
         String datosPartido;
         // para los datos individuales de cada linea
         String vectorPartido[];
-        //Obtengo una lista de equpo para identificarlos con el id
-        ListaEquipos listEquipos = new ListaEquipos();
-        listEquipos.cargarDeArchivo();
         // para el objeto en memoria
         Partido partido;
         int fila = 0;
@@ -84,7 +81,7 @@ public class ListaPartidos {
             while (sc.hasNext()) {
                 // levanta los datos de cada linea
                 datosPartido = sc.next();
-                System.out.println(datosPartido);  //muestra los datos levantados 
+                //System.out.println(datosPartido);  //muestra los datos levantados 
                 fila ++;
                 // si es la cabecera la descarto y no se considera para armar el listado
                 if (fila == 1)
@@ -102,8 +99,8 @@ public class ListaPartidos {
                 int GolesEquipo2 = Integer.parseInt(vectorPartido[4]);
                 
                 //obtengo los equipos desde el idequipo
-                Equipo e1 = listEquipos.getEquipos().get(idEquipo1-1);
-                Equipo e2 = listEquipos.getEquipos().get(idEquipo2-1);
+                Equipo e1 = listEquipos.getEquipo(idEquipo1);
+                Equipo e2 = listEquipos.getEquipo(idEquipo2);
                 
                 // crea el objeto en memoria
                 partido = new Partido(idPartido, e1, e2, GolesEquipo1, GolesEquipo2);

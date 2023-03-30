@@ -6,20 +6,33 @@ package tp;
  * @author Grupo 4
  */
 public class Pronostico {
+    private int idPronostico;
     private Equipo equipo;
     private Partido partido;
     private char resultado;
 
-    public Pronostico(Equipo equipo, Partido partido, char resultado) {
+    public Pronostico(int idPronostico, Equipo equipo, Partido partido, char resultado) {
+        this.idPronostico = idPronostico;
         this.equipo = equipo;
         this.partido = partido;
         this.resultado = resultado;
     }
 
     public Pronostico() {
-
+        this.idPronostico = 0;
+        this.equipo = null;
+        this.partido = null;
+        this.resultado = ' ';
     }
-    
+
+    public int getIdPronostico() {
+        return idPronostico;
+    }
+
+    public void setIdPronostico(int idPronostico) {
+        this.idPronostico = idPronostico;
+    }
+
     public Equipo getEquipo() {
         return equipo;
     }
@@ -46,8 +59,9 @@ public class Pronostico {
 
     @Override
     public String toString() {
-        return "Pronostico{" + "equipo=" + equipo + ", partido=" + partido + ", resultado=" + resultado + '}';
+        return "Pronostico{" + "idPronostico=" + idPronostico + ", equipo=" + equipo + ", partido=" + partido + ", resultado=" + resultado + '}';
     }
+    
     
     
     

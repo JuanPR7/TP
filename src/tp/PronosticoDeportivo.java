@@ -19,10 +19,10 @@ public class PronosticoDeportivo {
 
     public void play(){
        // cargar y listar los equipos
-        //equipos.cargarDeArchivo();
-        //System.out.println("Los equipos cargados son: " + equipos.listar());
+        equipos.cargarDeArchivo();
+        System.out.println("Los equipos cargados son: " + equipos.listar());
         // cargar lista de partidos
-        partidos.cargarDeArchivo();
+        partidos.cargarDeArchivo(equipos);
         System.out.println("Los partidos cargados son: " + partidos.listar());
         
     }    

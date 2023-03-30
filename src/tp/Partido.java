@@ -76,7 +76,23 @@ public class Partido {
     
 
     public char resultado(Equipo equipo){
-        return ' ';
+        char resultado = 'E';
+       if (equipo.getIdEquipo() == this.equipo1.getIdEquipo()){
+           if (this.golesEquipo1 < this.golesEquipo2)
+               resultado = 'P';
+           else  if (this.golesEquipo1 > this.golesEquipo2){
+               resultado = 'G';
+           }
+       }else{
+           //equipo = equipo2
+           if (this.golesEquipo2 < this.golesEquipo1)
+               resultado = 'P';
+           else  if (this.golesEquipo2 > this.golesEquipo1){
+               resultado = 'G';
+           }
+       }
+        
+        return resultado;
     
     }
 }
