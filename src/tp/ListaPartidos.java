@@ -64,6 +64,26 @@ public class ListaPartidos {
         return lista;
     }
     
+
+    public Partido getPartido (int idPartido) {
+        Partido encontrado = null;
+        // Recorro la lista de equipos que está cargada
+        for (Partido pa : this.getPartidos()) {
+            // Para cada equipo obtengo el valor del ID y lo comparo con el que
+            // estoy buscando
+            if (pa.getIdPartido() == idPartido) {
+                // Si lo encuentro (son iguales) lo asigno como valor de encontrado
+                encontrado = pa;
+                // Y hago un break para salir del ciclo ya que no hace falta seguir buscando
+                break;
+            }
+        }
+        // Una vez fuera del ciclo retorno el equipo, pueden pasar dos cosas:
+        // 1- Lo encontré en el ciclo, entonces encontrado tiene el objeto encontrado
+        // 2- No lo encontré en el ciclo, entonces conserva el valor null del principio
+        return encontrado;
+    }
+    
         // cargar desde el archivo
     public void cargarDeArchivo(ListaEquipos listEquipos) {
         // para las lineas del archivo csv
