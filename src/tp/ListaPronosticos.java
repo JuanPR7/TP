@@ -62,6 +62,28 @@ public class ListaPronosticos {
         return lista;
     }
  
+    public Pronostico getPronostico (int idPronostico) {
+        // Defini un objeto de tipo Equipo en dónde va a ir mi resultado
+        // Inicialmente es null, ya que no he encontrado el equipo que 
+        // buscaba todavía.
+        Pronostico encontrado = null;
+        // Recorro la lista de equipos que está cargada
+        for (Pronostico pr : this.getPronosticos()) {
+            // Para cada equipo obtengo el valor del ID y lo comparo con el que
+            // estoy buscando
+            if (pr.getIdPronostico() == idPronostico) {
+                // Si lo encuentro (son iguales) lo asigno como valor de encontrado
+                encontrado = pr;
+                // Y hago un break para salir del ciclo ya que no hace falta seguir buscando
+                break;
+            }
+        }
+        // Una vez fuera del ciclo retorno el equipo, pueden pasar dos cosas:
+        // 1- Lo encontré en el ciclo, entonces encontrado tiene el objeto encontrado
+        // 2- No lo encontré en el ciclo, entonces conserva el valor null del principio
+        return encontrado;
+    }
+    
     // cargar desde el archivo
     public void cargarDeArchivo(ListaPartidos listPartidos) {
         // para las lineas del archivo csv
@@ -71,7 +93,6 @@ public class ListaPronosticos {
         // para el objeto en memoria
         Pronostico pronostico;
         int fila = 0;
-        int idPronostico = 0;
        
         try { 
             Scanner sc = new Scanner(new File("./Pronosticos.csv"));
@@ -90,17 +111,17 @@ public class ListaPronosticos {
                 // guarda en un vector los elementos individuales
                 vectorPronostico = datosPronostico.split(",");   
                 
-                idPronostico += 1;
-                int idPartido = Integer.parseInt(vectorPronostico[1]);
+                int idPronostico = Integer.parseInt(vectorPronostico[0]);
+                int idPartido = Integer.parseInt(vectorPronostico[2]);
                 Partido partido = listPartidos.getPartido(idPartido);
-                int eq = Integer.parseInt(vectorPronostico[2]);
+                int eq = Integer.parseInt(vectorPronostico[3]);
                   Equipo equipo = new Equipo();
                 if (eq == 1){
                     equipo = partido.getEquipo1();
                 }else{
                      equipo = partido.getEquipo2();
                 }
-                char resultado =  vectorPronostico[3].charAt(1);
+                char resultado =  vectorPronostico[4].charAt(1);
                 // crea el objeto en memoria
                 pronostico = new Pronostico(idPronostico, equipo, partido, resultado);
                 
@@ -114,4 +135,59 @@ public class ListaPronosticos {
 
     }
 
+     public void cargarDeArchivo(ListaPartidos listPartidos, int IDparticipante) {
+        // para las lineas del archivo csv
+        String datosPronostico;
+        // para los datos individuales de cada linea
+        String vectorPronostico[];
+        // para el objeto en memoria
+        Pronostico pronostico;
+        int fila = 0;
+       
+        try { 
+            Scanner sc = new Scanner(new File("./Pronosticos.csv"));
+            sc.useDelimiter("\n");   //setea el separador de los datos
+                
+            while (sc.hasNext()) {
+                // levanta los datos de cada linea
+                datosPronostico = sc.next();
+               // System.out.println(datosEquipo);  //muestra los datos levantados 
+                fila ++;
+                // si es la cabecera la descarto y no se considera para armar el listado
+                if (fila == 1)
+                    continue;              
+                 
+                //Proceso auxiliar para convertir los string en vector
+                // guarda en un vector los elementos individuales
+                vectorPronostico = datosPronostico.split(",");   
+                int IDp = Integer.parseInt(vectorPronostico[1]);
+                if (IDp == IDparticipante){
+                    int idPronostico = Integer.parseInt(vectorPronostico[0]);
+                    int idPartido = Integer.parseInt(vectorPronostico[2]);
+                    Partido partido = listPartidos.getPartido(idPartido);
+                    int eq = Integer.parseInt(vectorPronostico[3]);
+                      Equipo equipo = new Equipo();
+                    if (eq == 1){
+                        equipo = partido.getEquipo1();
+                    }else{
+                         equipo = partido.getEquipo2();
+                    }
+                    char resultado =  vectorPronostico[4].charAt(1);
+
+                    // crea el objeto en memoria
+                    pronostico = new Pronostico(idPronostico, equipo, partido, resultado);
+
+                    // llama al metodo add para grabar el equipo en la lista en memoria
+                    this.addPronosticos(pronostico);
+                }
+            }
+            //closes the scanner
+        } catch (IOException ex) {
+                System.out.println("Mensaje: " + ex.getMessage());
+        }       
+
+    }
+
+    
+    
 }

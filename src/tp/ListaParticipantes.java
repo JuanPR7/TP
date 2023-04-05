@@ -75,13 +75,13 @@ public class ListaParticipantes {
         int fila = 0;
        
         try { 
-            Scanner sc = new Scanner(new File("./Participante.csv"));
+            Scanner sc = new Scanner(new File("./Participantes.csv"));
             sc.useDelimiter("\n");   //setea el separador de los datos
                 
             while (sc.hasNext()) {
                 // levanta los datos de cada linea
                 datosParticipante = sc.next();
-                System.out.println(datosParticipante);  //muestra los datos levantados 
+                //System.out.println(datosParticipante);  //muestra los datos levantados 
                 fila ++;
                 // si es la cabecera la descarto y no se considera para armar el listado
                 if (fila == 1)
@@ -95,6 +95,7 @@ public class ListaParticipantes {
                 //convertir un string a un entero;
                 int idParticipante = Integer.parseInt(vectorParticipante[0]);
                 String Participante = vectorParticipante[1];
+              //  ListaPronosticos pronos = pronosticos.cargarDeArchivo(pronosticos,idParticipante);
                 // crea el objeto en memoria
                 participante = new Participante(idParticipante, Participante, null, 0);
                 
